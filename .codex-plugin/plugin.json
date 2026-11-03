@@ -1,0 +1,9 @@
+{
+  "name": "qcfg-agents",
+  "version": "0.1.0",
+  "description": "Sergei's qcfg-agents Codex plugin bundling custom skills and agents.",
+  "author": {
+    "name": "Sergei Dyshel"
+  },
+  "skills": "./skills/"
+}

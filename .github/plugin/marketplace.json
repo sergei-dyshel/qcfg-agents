@@ -1,0 +1,13 @@
+{
+  "name": "qcfg-agents",
+  "owner": {
+    "name": "Sergei Dyshel"
+  },
+  "plugins": [
+    {
+      "name": "qcfg-agents",
+      "source": ".",
+      "description": "Sergei's qcfg-agents plugin bundling custom skills and agents."
+    }
+  ]
+}
