@@ -83,10 +83,10 @@ git status --porcelain --untracked-files=all
 
 Always pass `--untracked-files=all`. Without it, a new untracked directory shows up as a single `?? dir/` entry instead of its files, so every file inside it — often exactly the new code carrying `REVIEW:` tags — gets skipped in step 2.
 
-**Git submodules.** If the repository is a superproject with git submodules, `git status --porcelain` at the root only reports each dirty submodule as a single ` M <submodule>` entry and does **not** list the individual files inside it. To see the actual file paths, run the same `git status` command **once inside each dirty submodule directory**: <!-- markdownlint-disable-line MD038 -->
+**Git submodules.** If the repository is a superproject with git submodules, `git status --porcelain` at the root only reports each dirty submodule as a single ` M <submodule>` entry and does **not** list the individual files inside it. That ` M` also marks a submodule whose checked-out commit merely differs from the recorded one, with nothing inside to scan. `git status --porcelain=v2` at the root tells the two apart: a submodule entry's `S<c><m><u>` field has `M` in the third position for tracked changes and `U` in the fourth for untracked files (e.g. `SCM.`), while `SC..` means only its commit moved. To see the actual file paths, run the same `git status` command **once inside each submodule with `M` or `U` in that field**: <!-- markdownlint-disable-line MD038 -->
 
 ```sh
-# For each dirty submodule reported at the root:
+# For each submodule with M or U in its S<c><m><u> field at the root:
 cd <submodule> && git status --porcelain --untracked-files=all
 ```
 
@@ -140,7 +140,7 @@ Renames, signature changes, and changes to the shape of types or structs usually
 
 The user often adds **new** `REVIEW:` tags **while the agent is working**, typically as a reaction to in-flight edits. After you believe you've addressed every tag from step 2:
 
-1. Repeat step 1 (re-run `git status --porcelain --untracked-files=all` at the root and inside each dirty submodule) — the set of dirty files may have grown. Keep any file the user pointed at in the list.
+1. Repeat step 1 (re-run `git status --porcelain --untracked-files=all` at the root and inside each submodule with `M` or `U` in its `S<c><m><u>` field) — the set of dirty files may have grown. Keep any file the user pointed at in the list.
 2. Repeat step 2 with the updated file list (single `grep` invocation, filenames listed explicitly).
 3. If any `REVIEW:` matches remain, go back to step 3 and address them (and step 4 if code changed).
 4. Loop until a fresh `grep` returns **zero** matches.
