@@ -65,6 +65,7 @@ Discard a candidate if any of these hold:
 - **The toolchain already catches it.** When the project mandates a build for every change, a mistake that fails compiling, linting or a test needs no rule. A rule earns its place by covering something that passes the build but is still wrong, or that costs a debugging detour.
 - **It is conversation-specific**: what was decided next, which files were touched, what the user wants done later.
 - **It is an enumeration** of symbols, filenames, packages or tasks. State the rule that generates the list and point at the authoritative source instead. See `Examples in prose` in [`writing-style`](../writing-style/SKILL.md).
+- **It weakens a safety rule of the file it would land in**: a rule that forbids or gates an action, such as a write, a destructive command or a step that needs the user's approval. Do not propose loosening it. Report the observation behind it to the user as a fact (e.g. a step that needed a write the rule forbids), and leave the decision to them.
 
 ### 3. Verify each survivor
 
