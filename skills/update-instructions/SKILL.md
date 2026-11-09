@@ -47,9 +47,12 @@ Steps 1 to 3 are unique to session-wide learning and are detailed below. Step 4 
 Look back over the session for moments where reality differed from expectation. The richest sources, in rough order of value:
 
 - **A build, lint or test failure whose cause was not covered by any existing rule.** These are the most valuable entries because they cost real time and will cost it again.
+- **A skill or doc that let you down while you followed it**: a documented command that failed or needed a different spelling, an argument or output field that was missing or named differently, a default that changed, a claim the run contradicted. Treat the friction as a defect in the doc, not only in the run, and quote the command that failed and the one that worked.
 - **A rule that turned out to have an unwritten exception**, typically revealed by the user overruling an action the rule seemed to mandate. The exception is as important as the rule.
-- **A command whose output was misleading** rather than wrong, so it was believed at first.
+- **A rule or correction the user stated during the session** ("when X, check Y") that no instruction file records yet.
+- **A command whose output was misleading** rather than wrong, so it was believed at first, or that needed interpretation no doc gives: what an empty result means, which errors are transient and worth a retry.
 - **A fact that had to be verified empirically** because no doc stated it, and a future agent would have to verify it again.
+- **A documented entry that was not enough**: you had to run the command's `--help`, read its source or try twice. Propose a fuller entry for that command: a worked example with real-shaped arguments, the meaning of the result fields you had to interpret, the follow-up its result usually leads to.
 - **A recipe in a knowledge file that upstream has since superseded.** When the repository keeps a verbatim snapshot of an upstream doc beside its own knowledge file, reading the snapshot end to end is a survey source in its own right. It surfaces recipes that still work but are no longer the supported way, which no build failure will ever flag. Verify each divergence against the pinned version before proposing it, and propose the code migration together with the doc edit.
 - **A conflict between two instruction files**, or between an instruction file and the code.
 
