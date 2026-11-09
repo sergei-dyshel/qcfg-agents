@@ -11,7 +11,7 @@ This skill governs sentences and word choice. Where a kind of text goes and what
 
 **Nothing here applies inside a fenced block or quoted output.** Code, log lines, command output and error messages stay verbatim, down to their punctuation, so the reader can grep for them.
 
-**Apply these rules to text you write and to text you rewrite.** A sentence you touch for another reason is brought into line as part of that edit. Text you do not touch stays as it is: do not reflow a file to satisfy this skill. The one exception is the em dash rule below, which forbids new ones outright and leaves old ones alone.
+**Apply these rules only to text the current change adds, and to text the user asks you to rewrite.** Existing comments and prose stay as they are, even on a line you edit for another reason: do not restyle them, reflow them, or extend them to describe the change. The em dash rule below likewise forbids new dashes and leaves old ones alone.
 
 ## When this skill applies
 
