@@ -83,7 +83,7 @@ Once the user picks:
 
 - **Apply exactly the approved items, with the approved wording.** Do not slip in a rejected candidate or a newly thought-of extra.
 - **If the user removes or rewrites text you applied, that is a decision, not an oversight.** Do not restore it in a shorter form, in a different file or as a code comment, and do not re-propose it in a later round.
-- **An item the reply passes over in silence stays open.** Note it once as still pending in the closing message and leave it there. Silence is neither approval nor rejection, so do not apply it and do not raise it again in a later round.
+- **An item the reply passes over in silence stays open.** Note it once as still pending in the closing message and leave it there. Silence is neither approval nor rejection, so do not apply it and do not raise it again in a later round. When the user later asks for the open proposals, list every one not applied yet, each with its destination and wording.
 - **After a term substitution, re-read the whole sentence.** Replacing a command or name in place can leave the surrounding claim contradicting itself, and the diff looks clean because only the intended words changed. Report the collateral wording, and any occurrence the user's scope word excluded, rather than widening the edit unasked.
 - **Edit the real file, never a symlink to it.** Instruction files are often reachable under several names (a `CLAUDE.md` linked to `AGENTS.md`, a skills directory linked into a host's config directory). Resolve the link and edit its target once. Never delete or replace a linked directory itself.
 - **Run the project's formatter over the edited files**, as its instructions prescribe.
