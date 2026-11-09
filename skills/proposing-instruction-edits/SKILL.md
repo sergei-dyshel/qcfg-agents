@@ -73,6 +73,8 @@ Present the proposals as clearly readable numbered paragraphs, **not a table**, 
 
 **One fact per candidate, numbered in one flat sequence**: proposals, rejected candidates and side notes alike. A candidate bundling several facts cannot be answered with one verdict, and a numbering that restarts under headings makes a reply of "2." ambiguous. Expect a reply that keeps some, drops others, rewrites a third and adds one of its own. When it answers with a question instead of a verdict, answer the question first. If a reply's referent is ambiguous, ask. Do not pick the reading that lets you keep the entry.
 
+**A subagent presents the list at the end of its final message and does not wait for an answer.** The agent that spawned it merges the lists of all its subagents into one, numbered in one flat sequence, with one entry for a candidate that several subagents report, and presents that list as this section says.
+
 Then wait. Do not apply anything. Being asked what you learned is a request for the answer, not permission to write it.
 
 ## 5. Apply only what was approved
