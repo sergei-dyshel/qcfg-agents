@@ -91,43 +91,40 @@ A review is defined by its brief, written by whoever starts it. It names:
    - **Refused bequest**: a subclass or implementer that ignores or overrides most of what it inherits. Drop the inheritance for composition.
 9. **Let the scope decide what is reviewed, not whether a line is new.** For a diff scope, focus on the lines in the hunks and read the pre-existing lines around them as context for the change: a convention the change breaks shows against them, and a bug they hold is reported (step 12), but their style is not re-reviewed on its own. For a named file or directory, every line is in scope and an old deviation is a finding like any other: the "do not retrofit" clauses of a project's rules do not apply when the user asked for the whole file to be brought up to the instructions.
 10. **Give a test-only, refactor, cleanup or doc-only change the same reading as a feature.** A test that asserts the wrong thing gives false confidence, a refactor changes behavior through ordering or error paths, a cleanup removes code that was load-bearing, and a stale example in a doc is copied into new code. Read for what the change could break, not for what its label says it does.
-11. **Mark each finding as trivially fixable or not.** A trivial fix is right at a glance, mechanical and reversible in a single hunk: the wording of a comment or a help text, a missing period, formatting or symbol ordering, an un-export or a rename whose every site a reference search confirms. Anything that changes behavior or an API, needs a decision between alternatives or is hard to undo is not trivial. When unsure whether something is a deviation at all, mark it not trivial and say why. The project's flow decides what happens to each kind, e.g. applying the trivial ones at once and proposing the rest. A project's own definition of trivial replaces this one.
-12. **Report pre-existing logic bugs and broken functional conventions in the surrounding code**, whatever the scope form, under `Outstanding`. They are not the change's to fix, but a reviewer who read the code and stayed silent about them did not report what was observed.
+11. **Label each finding `Trivial` or `Complex`, by whether it is trivially fixable.** A trivial fix is right at a glance, mechanical and reversible in a single hunk: the wording of a comment or a help text, a missing period, formatting or symbol ordering, an un-export or a rename whose every site a reference search confirms. Anything that changes behavior or an API, needs a decision between alternatives or is hard to undo is not trivial. When unsure whether something is a deviation at all, mark it not trivial and say why. The project's flow decides what happens to each kind, e.g. applying the trivial ones at once and proposing the rest. A project's own definition of trivial replaces this one.
+12. **Report pre-existing logic bugs and broken functional conventions in the surrounding code**, whatever the scope form, and label them `Outstanding`. They are not the change's to fix, but a reviewer who read the code and stayed silent about them did not report what was observed.
 13. **Check every occurrence.** A rule found broken once is checked across the whole scope, and each site is reported, so the caller fixes all of them and not one. When one rule is broken at many sites, one entry may cover them, as long as it names every site and gives the replacement for each trivial one.
 
 ## Output format
 
 Open with one line stating the scope as read: each repository, the diff form or the files, the count of files read, and the task when the brief named one. A misread scope shows there before any finding does.
 
-Then return exactly these sections, in this order, each a numbered list in one flat sequence across the whole report (1, 2, 3 and so on, continuing from section to section) so a reply of "apply 4 and 7" is unambiguous. Say `None.` under a section that is empty rather than omitting it. The report lists problems only: no praise, no note on what was done well.
+**Group the findings by severity, most severe first**: a `Critical`, an `Important` and a `Suggestion` section, in that order, each left out when empty. The confidence does not set the order. Any other sectioning is the reviewer's judgement, and a project's instructions or another skill may prescribe a layout or add a section, such as a verdict. Number every entry in one flat sequence across the whole report (1, 2, 3 and so on, continuing from section to section) so a reply of "apply 4 and 7" is unambiguous. A report with no findings says `None.`. The report lists problems only: no praise, no note on what was done well.
 
 A finding states what was read, not what the code "might" or "probably" does. Where the evidence is incomplete, say what was checked and what remains unverified, so the caller knows what to confirm. A bug entry names the input or event that triggers it and what then happens, so the caller can confirm it without re-deriving it.
 
-**Each entry ends with its tier and its confidence**, as `[Critical, 95]`. **The tier is the severity of the finding: what it costs if it stays**, not whether an instruction file states a rule it breaks. Rules differ in what they protect: a broken rule on an invariant can be `Critical`, while a broken rule on the wording of a comment is a `Suggestion`. A project's instructions may set the tier of a rule they state.
+### Severity
+
+**The tier is the severity of the finding: what it costs if it stays**, not whether an instruction file states a rule it breaks. Rules differ in what they protect: a broken rule on an invariant can be `Critical`, while a broken rule on the wording of a comment is a `Suggestion`. A project's instructions may set the tier of a rule they state.
 
 - `Critical`: a bug, lost data, a security hole, or a broken invariant or functional convention.
 - `Important`: a problem that breaks no behavior yet but makes the code harder to keep correct, e.g. a changed behavior that no test covers.
 - `Suggestion`: a cost to readability or structure only: style, naming, code organization, a design smell (step 8), a recommendation among alternatives, or the reviewer's own judgement.
 
-The confidence, 0 to 100, says how sure the reviewer is that the finding is real, given what it read. A low number comes with the reason, as step 11 asks.
+### Each finding
 
-**Within each section, order the entries from most to least severe**, `Critical` first, unless the project's instructions or the brief prescribe another order. The confidence does not set the order. When a section holds more than a handful of entries, group them under a `Critical`, `Important` and `Suggestion` subheading each, so the caller sees at a glance how much is at stake. The numbering stays one flat sequence through the subheadings.
+Each finding gives the file and line, the rule it breaks when one does (the instruction file and the section title, or the task's line), and what is wrong in one sentence. Then, by its label:
 
-### Trivial
+- `Trivial`: the **exact replacement**, the current text and the new text, both verbatim, so the caller can apply it without judgement.
+- `Complex`: the alternatives with a recommendation, written so the finding can be pasted into a proposal list as it is.
 
-For each: the file and line, the rule (file and section title), and the **exact replacement**: the current text and the new text, both verbatim, so the caller can apply it without judgement.
+A finding in the pre-existing code around the change also carries the label `Outstanding` (step 12). It covers logic and functional conventions only, not style.
 
-### Complex
-
-For each: the file and line, the rule, what is wrong in one sentence, and the alternatives with a recommendation. Written so it can be pasted into a proposal list as it is.
-
-### Outstanding
-
-Pre-existing logic or functional-convention problems in the surrounding code, each with its file and line and the rule it breaks. Not style.
+**Each finding ends with its tier, its labels and its confidence**, as `[Critical, Complex, 95]`. The confidence, 0 to 100, says how sure the reviewer is that the finding is real, given what it read. A low number comes with the reason, as step 11 asks.
 
 ### Declined
 
-Every observation the reviewer considered and set aside, one line each with the reason: a construct that looked like a deviation until a project rule endorsed it, a smell suppressed by a neighbor's convention, a gap the task leaves open on purpose. The caller rules on each line. Nothing is dropped silently.
+A low-severity section after the findings: every observation the reviewer considered and set aside, one line each with the reason: a construct that looked like a deviation until a project rule endorsed it, a smell suppressed by a neighbor's convention, a gap the task leaves open on purpose. The caller rules on each line. Nothing is dropped silently.
 
 ### Scope notes
 
@@ -145,9 +142,9 @@ Do not:
 - Narrow the given scope, or spill past it into files the brief did not name.
 - Read the hunks that look interesting and skip the rest of the diff.
 - Re-review the style of pre-existing lines around a hunk when the scope is a diff, or leave an old deviation alone when the scope is a named file.
-- Drop a pre-existing bug because it is not the change's to fix. It goes under `Outstanding`.
+- Drop a pre-existing bug because it is not the change's to fix. It is a finding, labeled `Outstanding`.
 - Report one occurrence of a deviation and leave the others in the scope unchecked.
-- Manufacture a finding so that a section does not say `None.`. A clean scope produces an empty report.
+- Manufacture a finding so that the report is not empty. A clean scope produces a report that says `None.`.
 - Praise what was done well. The report lists problems.
 - Edit anything, or run a command that changes the working tree, the index or the build state.
 
