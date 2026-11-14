@@ -103,11 +103,11 @@ Then return exactly these sections, in this order, each a numbered list in one f
 
 A finding states what was read, not what the code "might" or "probably" does. Where the evidence is incomplete, say what was checked and what remains unverified, so the caller knows what to confirm. A bug entry names the input or event that triggers it and what then happens, so the caller can confirm it without re-deriving it.
 
-**Each entry ends with its tier and its confidence**, as `[Critical, 95]`:
+**Each entry ends with its tier and its confidence**, as `[Critical, 95]`. **The tier is the severity of the finding: what it costs if it stays**, not whether an instruction file states a rule it breaks. Rules differ in what they protect: a broken rule on an invariant can be `Critical`, while a broken rule on the wording of a comment is a `Suggestion`. A project's instructions may set the tier of a rule they state.
 
-- `Critical`: a bug, or a change that loses data, opens a security hole or breaks a functional convention the instructions document.
-- `Important`: a rule an instruction file or the task states, broken.
-- `Suggestion`: a convention the neighbors keep that no file states, a recommendation among alternatives, a design smell (step 8) or the reviewer's own judgement. Code organization, refactoring and style are never above this tier unless an instruction file states the rule.
+- `Critical`: a bug, lost data, a security hole, or a broken invariant or functional convention.
+- `Important`: a problem that breaks no behavior yet but makes the code harder to keep correct, e.g. a changed behavior that no test covers.
+- `Suggestion`: a cost to readability or structure only: style, naming, code organization, a design smell (step 8), a recommendation among alternatives, or the reviewer's own judgement.
 
 The confidence, 0 to 100, says how sure the reviewer is that the finding is real, given what it read. A low number comes with the reason, as step 11 asks.
 
@@ -141,7 +141,7 @@ Do not:
 
 - Review from memory of what the instructions say. Load the files, or reload the leading one when reviewing in the main context.
 - Review with the scope or the context missing. Ask for it first.
-- Rank a smell, a refactoring or a style preference above `Suggestion` when no instruction file states the rule.
+- Set a tier by whether a rule names the finding rather than by what the finding costs, e.g. a broken style rule above `Suggestion`.
 - Narrow the given scope, or spill past it into files the brief did not name.
 - Read the hunks that look interesting and skip the rest of the diff.
 - Re-review the style of pre-existing lines around a hunk when the scope is a diff, or leave an old deviation alone when the scope is a named file.
