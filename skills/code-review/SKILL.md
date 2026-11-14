@@ -111,6 +111,8 @@ A finding states what was read, not what the code "might" or "probably" does. Wh
 - `Important`: a problem that breaks no behavior yet but makes the code harder to keep correct, e.g. a changed behavior that no test covers.
 - `Suggestion`: a cost to readability or structure only: style, naming, code organization, a design smell (step 8), a recommendation among alternatives, or the reviewer's own judgement.
 
+**Keep every `Suggestion` when there are few. When there are many, e.g. more than 20, keep the ones that matter most and drop the rest**, and give the count dropped under `Scope notes`: a long list of minor points hides the findings that matter. Never drop a `Critical` or an `Important` finding.
+
 ### Each finding
 
 Each finding gives the file and line, the rule it breaks when one does (the instruction file and the section title, or the task's line), and what is wrong in one sentence. Then, by its label:
@@ -139,6 +141,7 @@ Do not:
 - Review from memory of what the instructions say. Load the files, or reload the leading one when reviewing in the main context.
 - Review with the scope or the context missing. Ask for it first.
 - Set a tier by whether a rule names the finding rather than by what the finding costs, e.g. a broken style rule above `Suggestion`.
+- Report every minor suggestion when there are many of them.
 - Narrow the given scope, or spill past it into files the brief did not name.
 - Read the hunks that look interesting and skip the rest of the diff.
 - Re-review the style of pre-existing lines around a hunk when the scope is a diff, or leave an old deviation alone when the scope is a named file.
