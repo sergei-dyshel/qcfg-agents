@@ -151,6 +151,11 @@ Do not:
 - Praise what was done well. The report lists problems.
 - Edit anything, or run a command that changes the working tree, the index or the build state.
 
+
+## Improving the review
+
+A review's misses and the findings the user declines are the evidence for improving this skill, a project's review agents and the instruction files they judge against. When the session that held the review, or received its report, goes on to fix the defects, the defects the user fixed that the report did not list and the findings the user declined as wrong are each a lesson. That analysis runs when the user asks to update the instructions, through [`update-instructions`](../update-instructions/SKILL.md), which names the review as a survey source. It is not part of the review itself, and the reviewer does not run it unprompted.
+
 ## Reference
 
 This skill owns the reading: what a review loads, what it reads, what counts as a finding and how the report is shaped. The project's flow owns the rest: when a review runs, what the brief contains, who applies which findings and what is verified afterwards. Its entries follow the [`writing-style`](../writing-style/SKILL.md) skill, and the rules it checks against live in the project's instruction files, which it never edits.
