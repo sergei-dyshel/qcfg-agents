@@ -33,7 +33,7 @@ Do **not** trigger this skill for:
 
 At a high level, this skill:
 
-1. Surveys the session for knowledge that is **durable** (true beyond this conversation) and **not already recorded** anywhere in the repository.
+1. Surveys the session for knowledge that is **durable** (true beyond this conversation) and **not already recorded** anywhere in the repository, and for recorded instructions it showed to be wrong, obsolete or redundant.
 2. Filters that list hard. Most of what feels like a lesson is either already written down, already caught by the build, or specific to the conversation.
 3. Verifies each survivor against the current tree.
 4. Hands the survivors to [`proposing-instruction-edits`](../proposing-instruction-edits/SKILL.md): route to a file, word the proposal, present the numbered list and **wait**, apply only what the user approves.
@@ -55,6 +55,7 @@ Look back over the session for moments where reality differed from expectation. 
 - **A documented entry that was not enough**: you had to run the command's `--help`, read its source or try twice. Propose a fuller entry for that command: a worked example with real-shaped arguments, the meaning of the result fields you had to interpret, the follow-up its result usually leads to.
 - **A recipe in a knowledge file that upstream has since superseded.** When the repository keeps a verbatim snapshot of an upstream doc beside its own knowledge file, reading the snapshot end to end is a survey source in its own right. It surfaces recipes that still work but are no longer the supported way, which no build failure will ever flag. Verify each divergence against the pinned version before proposing it, and propose the code migration together with the doc edit.
 - **A conflict between two instruction files**, or between an instruction file and the code.
+- **An existing instruction the session showed to be wrong, obsolete or redundant**: a rule whose reason is gone (the tool it works around was fixed, the code it describes was removed), a rule another rule now covers, or a mistake the build has started to catch. Propose removing it, or its redundant part, rather than adding a rule that contradicts or repeats it: a stale rule misleads every reader who follows it. A removal proposal quotes the exact text to delete where an addition would quote its wording. Removing a safety rule weakens it, so the last filter of the next section applies.
 - **A code review's misses and the findings the user declined**, when the session held a review (the [`code-review`](../code-review/SKILL.md) skill, a project's review agent, or a report one of them produced) and the user then fixed the defects. Read the report against the diff of the fixes and the user's replies, and ask two questions. First, which defects did the user fix that the report did not list? For each, name the reading that would have caught it: a rule no instruction file states so the reviewer could not cite it, a focus the split did not include, a step that skipped the file or the neighbor where it showed. Second, which findings did the user decline with a reason that the finding was wrong or not wanted? For each, name what in the review produced it: a rule misread, a project convention that should have suppressed a smell, a tier set too high, a case the rule should except. A finding declined because the user chose to apply it later is not a miss and teaches nothing. The destination is whichever produced the gap: the review skill or agent, or the instruction file the review judges against. A skill or agent that lives in another repository, such as an installed plugin, gets the proposal in the same list, labelled with its file, and the user decides where to apply it.
 
 ### 2. Filter out what does not belong
@@ -71,6 +72,8 @@ Discard a candidate if any of these hold:
 ### 3. Verify each survivor
 
 Before proposing anything, confirm it still holds in the working tree: re-run the command, re-read the file, check that every symbol, flag, task name and error code named in the proposed wording exists today. A rule that cites something stale is worse than no rule. Re-read the destination section itself rather than the copy already in context. The user may have rewritten it earlier in the same session, so an anchor quoted from memory can no longer exist.
+
+**Before proposing a removal, confirm its reason and find every reference to the text it deletes.** Reproduce the failure the rule names and check that it no longer occurs, or find the rule that now covers it. Then search for the rule's section title quoted in other files, links to its section, and skills that defer to it: a removal that leaves such a reference behind leaves it pointing at nothing, so the proposal updates each one too.
 
 **Check the wording against the limits the destination sets for itself**, such as a maximum length for a frontmatter description, and keep every example the proposal adds runnable as written, from the directory the destination says to run it in.
 
@@ -96,7 +99,7 @@ Do not:
 
 - Apply an instruction edit because the user asked what you learned. The question is not the permission.
 - Propose a rule for a mistake that the build, the linter or the test suite already catches.
-- Add a new bullet that restates or contradicts an existing rule instead of amending that rule in place.
+- Add a new bullet that restates or contradicts an existing rule instead of amending that rule in place or removing it.
 - Propose wording that cites a symbol, task or error code without checking it exists in the current tree.
 - Record the lesson in the component you were editing when it belongs to the component that owns the mechanism.
 - Silently drop a candidate you decided against. List it with its reason.
