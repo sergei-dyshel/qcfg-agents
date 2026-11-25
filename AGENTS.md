@@ -18,6 +18,11 @@ lives in `skills/<name>/SKILL.md`. A file that several skills share lives in
   [writing-style](skills/writing-style/SKILL.md).
 - **Keep a skill's `name` frontmatter identical to its directory name**, as the
   Agent Skills specification requires.
+- **Keep a skill's frontmatter `description` within 250 characters.** Hosts
+  truncate or reject a longer one, and the agent picks a skill from this field
+  alone. State what the skill does in one clause and name two or three trigger
+  phrasings followed by `or similar`. The full list of phrasings belongs in the
+  skill body's `When this skill applies`.
 
 ## Manifests
 

@@ -1,6 +1,6 @@
 ---
 name: review-comments
-description: 'Address `REVIEW:` tags the user has left in dirty (uncommitted) working-tree files and in-progress Markdown docs — inline instructions, or questions about a change. Use when the user asks to "address review comments", "address review", "resolve REVIEWs", "check REVIEW tags", or any equivalent phrasing. Also use before committing (commit, amend, fixup), before creating or updating a PR/CR, and before declaring a plan or design doc final, to check that no `REVIEW:` tags leak through.'
+description: 'Address `REVIEW:` tags the user left in uncommitted files and in-progress Markdown docs. Use when asked to "address review comments", "resolve REVIEWs" or similar, and before committing or finalizing a plan, to check that none leak through.'
 ---
 
 # Address `REVIEW:` tags
